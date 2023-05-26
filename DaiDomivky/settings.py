@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     'media',
     'contacts',
     'campaigns',
-    'user',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +136,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',  # BASE_DIR is the root of your project
 ]
 
-from .local_settings import *
+AUTH_USER_MODEL = 'user.CustomUser'
+
+from .local_settings import *  # noqa
+
+SESSION_COOKIE_AGE = 1200
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

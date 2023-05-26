@@ -6,10 +6,18 @@
 
 
 {% block content %}
+{% if not user.is_authenticated %}
+    <a href="{% url 'user:login' %}">Login</a>
+    <a href="{% url 'user:signup' %}">Sign Up</a>
+{% endif %}
+    {% if user.is_authenticated %}
+        <a href={% url 'user:logout' %}>Logout</a>
+        <a href={% url 'blog:create' %}>Create</a>
+    {% endif %}
     {% for post in list %}
         <ul style="list-style-type: none">
             <li>
-                <a href= {{ post.get_absolute_url }}>{{ post }}</a>
+                <a href= {{ post.get_absolute_url }}>{{ post }} {{ post.status }}</a>
             </li>
         </ul>
     {% endfor %}

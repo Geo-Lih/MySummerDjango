@@ -1,0 +1,325 @@
+body {
+    margin: 0;
+    font-family: "Raleway", "Helvetica", "Arial", sans-serif;
+}
+
+p {
+    display: block;
+    margin: 1em 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    z-index: 2;
+    margin-left: 25px;
+}
+
+.header {
+    padding: 20px;
+    background: url(https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yOTk3NzM5NS9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTcxODAyNjcxNX0.uPwkOQv_zdg9Qixv6nS4CzN925Xt_lUTT6p_lAsad04/img.jpg?width=1200&height=800&quality=85&coordinates=0%2C0%2C1%2C0) no-repeat center center / cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-attachment: fixed;
+    background-position: 50%;
+}
+
+.header::after {
+    content: "";
+    background: #475b62;
+    opacity: .85;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    transition: all .25s ease;
+    z-index: 1;
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+}
+
+.nav-list-link {
+    position: relative;
+    display: flex;
+    height: 21px;
+    align-items: center;
+}
+
+.nav-list-link::after {
+    content: "";
+    background: #1ab1cc;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    transition: all .25s ease;
+    transform: scaleX(0);
+}
+
+.nav-list-link:hover::after {
+    transform: scaleX(1);
+}
+
+.nav-list li {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0 10px;
+}
+
+.nav-list a:hover {
+    color: #1ab1cc;
+    transition: all .25s ease;
+}
+
+.nav-list li:last-of-type a {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 10px;
+    background-color: #dd3d53;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all .25s ease;
+}
+
+.nav-list li:last-of-type a:hover svg {
+    transition: all .25s ease;
+}
+
+
+.nav-list li:last-of-type a svg {
+    width: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+
+}
+
+.nav-list li:last-of-type a:hover {
+    background-color: #c9233a;
+    color: white;
+}
+
+.logo-container {
+    line-height: 1.5;
+}
+
+.header .logo-container a img {
+    height: 40px;
+}
+
+.text-content {
+    box-sizing: border-box;
+    margin: auto;
+    max-width: 1280px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.text-content h1 {
+    display: flex;
+    flex-direction: column;
+    font-size: 56px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.5;
+    position: relative;
+    z-index: 10;
+}
+
+.text-content h1 span {
+    color: #1ab1cc;
+}
+
+.learn-more-link {
+    align-items: center;
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 700;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .25s ease;
+    background: #1ab1cc;
+    color: #fff;
+    position: relative;
+    z-index: 11;
+}
+
+.learn-more-link:hover {
+    background: #1699b0;
+}
+
+.nav-toggle {
+    font-size: 2rem;
+    color: #fff;
+}
+
+.burger-icon {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    vertical-align: -0.125em;
+}
+
+@media screen and (min-width: 992px) {
+    .nav-toggle {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .nav-list {
+        display: none;
+    }
+}
+
+.section {
+    background-image: url(https://d.newsweek.com/en/full/2003467/stray-dog.jpg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-color: #333;
+    color: #fff;
+    display: block;
+    position: relative;
+    z-index: 12;
+}
+
+.section::after {
+    content: "";
+    background: #443535;
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    transition: all .25s ease;
+    z-index: 1;
+}
+
+.container {
+    box-sizing: border-box;
+    margin: auto;
+    max-width: 1280px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.container h2 {
+    border-bottom: 2px solid #1ab1cc;
+    padding-bottom: 5px;
+    display: inline-block;
+    margin-top: 0;
+    font-weight: 400;
+    font-size: 1.75rem;
+}
+
+.row {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: -1rem;
+    margin-right: -1rem;
+}
+
+.content h3 {
+
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: block;
+}
+
+.content h3 span {
+
+    font-size: 1.75rem;
+    display: block;
+    margin: 1em 0;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.video-link {
+    display: flex;
+    margin-top: 40px;
+}
+
+.icon-wrap {
+    align-items: center;
+
+
+    box-sizing: border-box;
+    color: #1ab1cc;
+    font-size: 28px;
+
+    justify-content: center;
+    position: relative;
+    transition: all .25s ease;
+    width: 30px;
+    display: inline-flex;
+    margin-right: 20px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+
+}
+
+.h3 {
+    display: block;
+    font-size: 1.125rem;
+}
+
+.button-link {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: block;
+
+}
+
+.link a {
+    align-items: center;
+    border: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-size: 14px;
+    font-size: .875rem;
+    font-weight: 700;
+    justify-content: center;
+    max-width: 100%;
+    min-height: 40px;
+    outline: none;
+    padding: 0 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .25s ease;
+    background: #1ab1cc;
+    color: #fff;
+}

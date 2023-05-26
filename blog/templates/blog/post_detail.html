@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+
+
+{% block content %}
+    <div>
+        <ul style="list-style-type: none">
+            <li>
+                {{ post.title }}
+            </li>
+            <li>
+                {{ post.content }}
+            </li>
+            <li>
+                {{ post.author }}
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

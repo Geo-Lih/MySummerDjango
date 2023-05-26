@@ -1,4 +1,5 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
+
 from .models import Post
 
 
@@ -13,5 +14,3 @@ class PostDetailView(DetailView):
     template_name = 'blog/post_detail.html'
     slug_url_kwarg = 'slug_param'
     context_object_name = 'post'
-
-

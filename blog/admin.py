@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Post
 
 
@@ -14,5 +15,3 @@ class PostAdmin(admin.ModelAdmin):
     def set_status(self, request, queryset):
         res = queryset.update(status=1)
         return self.message_user(request, f'{res} posts wast published')
-
-

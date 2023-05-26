@@ -81,14 +81,13 @@ WSGI_APPLICATION = 'DaiDomivky.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'daidomivky',
-        'USER': 'georgii',
-        'PASSWORD': '12283667',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': 5432,
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -136,3 +135,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # BASE_DIR is the root of your project
 ]
+
+from .local_settings import *

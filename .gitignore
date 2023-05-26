@@ -33,3 +33,6 @@ media/
 
 # PyCharm IDE settings
 .idea/
+
+# Django stuff:
+local_settings.py

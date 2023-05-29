@@ -16,6 +16,7 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField(help_text='Content for post')
     status = models.IntegerField(choices=STATUS, default=0)
+    image = models.ImageField(upload_to='images', null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('blog:detail', args=(self.slug,))

@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField('email address', unique=True)
 
     USERNAME_FIELD = 'email'  # use email field as username
-    REQUIRED_FIELDS = []  # for createsuperuser  #TODO:first_name, last_name
+    REQUIRED_FIELDS = []  # for createsuperuser, email by default  #TODO:first_name, last_name
 
     objects = CustomUserManager()
 

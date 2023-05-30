@@ -47,6 +47,9 @@ class PostCreateView(CreateView):
     def form_valid(self, form):  # creating slug for post
         post = form.save(commit=False)
         post.author = self.request.user
+        if post.status == 1:
+            pass
+            # TODO: CALL CELERY TASK
         post.slug = slugify(post.title)
         if 'image' in self.request.FILES:
             post.image.save(

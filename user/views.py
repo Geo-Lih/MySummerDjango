@@ -1,5 +1,6 @@
-from django.contrib.auth.views import LoginView
 from DaiDomivky.mixins import SuccessUrlMixin
+
+from django.contrib.auth.views import LoginView
 from django.views import generic
 
 from .forms import CustomUserCreationForm, EmailAuthenticationForm

@@ -1,12 +1,11 @@
 from DaiDomivky.constants import StatusType
+from DaiDomivky.mixins import SlugifyMixin
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import Http404
 from django.urls import reverse_lazy
-from django.utils.text import slugify
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from DaiDomivky.mixins import SlugifyMixin
 
 from .models import Post
 

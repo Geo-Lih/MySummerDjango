@@ -1,15 +1,8 @@
 from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
+from DaiDomivky.mixins import SuccessUrlMixin
 from django.views import generic
 
 from .forms import CustomUserCreationForm, EmailAuthenticationForm
-
-
-class SuccessUrlMixin:
-    success_url_name = ''
-
-    def get_success_url(self):
-        return reverse_lazy(self.success_url_name)
 
 
 class SignUpView(SuccessUrlMixin, generic.CreateView):

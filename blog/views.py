@@ -5,7 +5,8 @@ from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from DaiDomivky.mixins import SlugifyMixin
 
 from .models import Post
 
@@ -45,7 +46,7 @@ class PostDetailView(DetailView):
         return context
 
 
-class PostCreateView(CreateView):
+class PostCreateView(SlugifyMixin, LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_create.html'
     fields = ['title', 'content', 'status']  # form fields
@@ -55,25 +56,12 @@ class PostCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('blog:list')
 
-    def form_valid(self, form):
-        post_obj = form.save(commit=False)  # returns post instance without sending it to db
-        post_obj.author = self.request.user
-        post_obj.slug = slugify(post_obj.title)  # creating slug for post
-        # post_obj.save()
-        # return HttpResponseRedirect(self.get_success_url())
-        return super().form_valid(form)  # saving and redirection by FormMixin
 
-
-class PostUpdateView(UpdateView):
+class PostUpdateView(SlugifyMixin, LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_update.html'
     slug_url_kwarg = 'slug_param'
     fields = ['title', 'content', 'status']
-
-    def form_valid(self, form):
-        post_obj = form.save(commit=False)
-        post_obj.slug = slugify(post_obj.title)
-        return super().form_valid(form)
 
     def get_success_url(self):
         return self.object.get_absolute_url()

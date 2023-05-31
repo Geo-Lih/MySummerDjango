@@ -1,7 +1,11 @@
+from DaiDomivky.constants import StatusType
+
+from django.db.models import Q
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
+
 
 from .models import Post
 
@@ -13,12 +17,14 @@ class PostListView(ListView):
     context_object_name = 'list'
 
     def get_queryset(self):
-        queryset = super().get_queryset()  # get origin queryset
+        post_qs = super().get_queryset()  # get origin queryset
         if self.request.user.is_authenticated:
-            queryset = queryset.filter(status=1) | queryset.filter(author=self.request.user, status=0)
+            # Retrieve all published posts or unpublished posts authored by the current user
+            post_qs = post_qs.filter(
+                Q(status=StatusType.PUBLISHED) | Q(author=self.request.user, status=StatusType.DRAFT))
         else:
-            queryset = queryset.filter(status=1)
-        return queryset
+            post_qs = post_qs.filter(status=StatusType.PUBLISHED)
+        return post_qs
 
 
 class PostDetailView(DetailView):
@@ -28,34 +34,46 @@ class PostDetailView(DetailView):
     context_object_name = 'post'
 
     def get_object(self, queryset=None):
-        obj = super().get_object()
-        if obj.status == 0 and self.request.user != obj.author:
+        post_obj = super().get_object()
+        if post_obj.status == StatusType.DRAFT and self.request.user != post_obj.author:
             raise Http404("Post not found.")
-        return obj
+        return post_obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
 
 
 class PostCreateView(CreateView):
     model = Post
     template_name = 'blog/post_create.html'
-    fields = ['title', 'content', 'status', 'image']  # form fields
+    fields = ['title', 'content', 'status']  # form fields
 
     # contex_object_name = form by default
 
     def get_success_url(self):
         return reverse_lazy('blog:list')
 
-    def form_valid(self, form):  # creating slug for post
-        post = form.save(commit=False)
-        post.author = self.request.user
-        if post.status == 1:
-            pass
-            # TODO: CALL CELERY TASK
-        post.slug = slugify(post.title)
-        if 'image' in self.request.FILES:
-            post.image.save(
-                self.request.FILES['image'].name,
-                self.request.FILES['image'],
-                save=True
-            )
-        post.save()
+    def form_valid(self, form):
+        post_obj = form.save(commit=False)  # returns post instance without sending it to db
+        post_obj.author = self.request.user
+        post_obj.slug = slugify(post_obj.title)  # creating slug for post
+        # post_obj.save()
+        # return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)  # saving and redirection by FormMixin
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'blog/post_update.html'
+    slug_url_kwarg = 'slug_param'
+    fields = ['title', 'content', 'status']
+
+    def form_valid(self, form):
+        post_obj = form.save(commit=False)
+        post_obj.slug = slugify(post_obj.title)
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()

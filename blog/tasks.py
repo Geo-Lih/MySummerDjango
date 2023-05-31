@@ -8,21 +8,20 @@ from .models import Post
 
 
 @shared_task()
-def send_is_published_email(post_id):  # post_id => post.id
+def send_is_published_email(post_title):
+    users_email = CustomUser.objects.values_list('email', flat=True)  # flat=True to avoid tuples'
 
-    users = CustomUser.objects.all()
-
-    group(send_email_to_user.s(post_id, user.id) for user in users)()  # creating group tasks based on lower func
+    # creating group tasks based on lower func
+    group(send_email_to_user.s(post_title, user_email) for user_email in users_email)()
 
 
 @shared_task()
-def send_email_to_user(post_id, user_id):
-    post = Post.objects.get(id=post_id)  # getting needed post by id
-    user = CustomUser.objects.get(id=user_id)  # getting needed user by id
+def send_email_to_user(post_title, user_email):
+    print(post_title, user_email)
     send_mail(
-        f'New Post: {post.title}',
-        f'Post {post.title} was published.',
+        f'New Post: {post_title}',
+        f'Post {post_title} was published.',
         'from@example.com',
-        [user.email],
+        [user_email],
         fail_silently=False,
     )

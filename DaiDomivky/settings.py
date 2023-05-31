@@ -164,16 +164,3 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-CELERY_BROKER_URL = 'amqp://localhost'  # RabbitMQ
-CELERY_RESULT_BACKEND = 'rpc://'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'LihitchenkoDjango@gmail.com'  # my gmail account
-EMAIL_HOST_PASSWORD = 'zgqykhwknaafeobx'  # my gmail app_password
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

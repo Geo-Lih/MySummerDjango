@@ -24,5 +24,16 @@ jobs:
       - name: Print PYTHONPATH
         run: echo $PYTHONPATH
 
+      - name: Set Environment Variables
+        env:
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          # Add other environment variables as needed
+        run: |
+          echo "export DB_NAME=$DB_NAME" >> $GITHUB_ENV
+          echo "export DB_USER=$DB_USER" >> $GITHUB_ENV
+          echo "export DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
+
       - name: Run tests #step name
         run: python manage.py test

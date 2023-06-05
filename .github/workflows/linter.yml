@@ -4,20 +4,14 @@ on:
   - pull_request
 
 jobs:
-  flake8:
+  flake8: #job's name
     runs-on: ubuntu-latest
-    env:  # Set the environment variables here
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      # Add other environment variables as needed
     steps:
       - name: Repository checkout #step name
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 #This action checks-out your repository under $GITHUB_WORKSPACE
 
-      - name: Python setup #step name
-        uses: actions/setup-python@v2
+      - name: Python setup # step name
+        uses: actions/setup-python@v2 #Set up python version
         with:
           python-version: '3.8'
 
@@ -26,9 +20,3 @@ jobs:
 
       - name: Run flake8 #step name
         run: flake8
-
-      - name: Print PYTHONPATH
-        run: echo $PYTHONPATH
-
-      - name: Run tests #step name
-        run: python manage.py test

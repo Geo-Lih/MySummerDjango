@@ -130,21 +130,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # This is an additional setting which tells Django where to look for static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # BASE_DIR is the root of your project
 ]
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'default_db_name'),
-        'USER': os.getenv('DB_USER', 'default_db_user'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'default_db_password'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-    }
-}
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
@@ -173,13 +163,3 @@ LOGGING = {
 }
 
 from .local_settings import *  # noqa
-
-SECRET_KEY = os.environ.get('SECRET_KEY', 'some_default_value')
-DB_NAME = os.environ.get('DB_NAME', 'default_db_name')
-DB_USER = os.environ.get('DB_USER', 'default_db_user')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', 'default_db_password')
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass

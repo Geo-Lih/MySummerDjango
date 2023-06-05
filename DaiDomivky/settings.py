@@ -130,16 +130,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = '/static/'
-
 # This is an additional setting which tells Django where to look for static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # BASE_DIR is the root of your project
 ]
 
 AUTH_USER_MODEL = 'user.CustomUser'
-
-from .local_settings import *  # noqa
 
 SESSION_COOKIE_AGE = 1200
 
@@ -164,3 +160,5 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+from .local_settings import *  # noqa

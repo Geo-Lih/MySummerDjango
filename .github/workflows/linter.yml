@@ -20,3 +20,6 @@ jobs:
 
       - name: Run flake8 #step name
         run: flake8
+
+      - name: Run tests #step name
+        run: python manage.py test

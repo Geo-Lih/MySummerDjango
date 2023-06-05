@@ -1,3 +1,4 @@
+from django.http import HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 
@@ -17,3 +18,8 @@ class SuccessUrlMixin:
 
     def get_success_url(self):
         return reverse_lazy(self.success_url_name)
+
+
+class PermissionHandlerMixin:
+    def handle_no_permission(self):
+        return HttpResponseNotFound()

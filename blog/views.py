@@ -1,5 +1,5 @@
 from DaiDomivky.constants import StatusType
-from DaiDomivky.mixins import SlugifyMixin
+from DaiDomivky.mixins import PermissionHandlerMixin, SlugifyMixin
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
@@ -45,10 +45,10 @@ class PostDetailView(DetailView):
         return context
 
 
-class PostCreateView(SlugifyMixin, LoginRequiredMixin, CreateView):
+class PostCreateView(PermissionHandlerMixin, SlugifyMixin, LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_create.html'
-    fields = ['title', 'content', 'status']  # form fields
+    fields = ['title', 'content', 'status']
 
     # contex_object_name = form by default
 
@@ -56,7 +56,7 @@ class PostCreateView(SlugifyMixin, LoginRequiredMixin, CreateView):
         return reverse_lazy('blog:list')
 
 
-class PostUpdateView(SlugifyMixin, LoginRequiredMixin, UpdateView):
+class PostUpdateView(PermissionHandlerMixin, SlugifyMixin, LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog/post_update.html'
     slug_url_kwarg = 'slug_param'

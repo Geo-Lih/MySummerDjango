@@ -13,22 +13,22 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       # Add other environment variables as needed
     steps:
-      - name: Repository checkout
+      - name: Repository checkout #step name
         uses: actions/checkout@v2
 
-      - name: Python setup
+      - name: Python setup #step name
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
-      - name: Install dependencies
+      - name: Install dependencies #step name
         run: pip install -r requirements.txt
 
-      - name: Run flake8
+      - name: Run flake8 #step name
         run: flake8
 
       - name: Print PYTHONPATH
         run: echo $PYTHONPATH
 
-      - name: Run tests
+      - name: Run tests #step name
         run: python manage.py test

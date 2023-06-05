@@ -24,16 +24,25 @@ jobs:
       - name: Print PYTHONPATH
         run: echo $PYTHONPATH
 
-      - name: Set Environment Variables
-        env:
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          # Add other environment variables as needed
+      - name: Set up environment variables
         run: |
           echo "export DB_NAME=$DB_NAME" >> $GITHUB_ENV
           echo "export DB_USER=$DB_USER" >> $GITHUB_ENV
           echo "export DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
+        shell: /usr/bin/bash -e {0}
+        env:
+          DB_NAME: ***
+          DB_USER: ***
+          DB_PASSWORD: ***
 
-      - name: Run tests #step name
+      - name: Copy local_settings.py template
+        run: cp local_settings.py.template local_settings.py
+
+      - name: Update local_settings.py with environment variables
+        run: |
+          sed -i "s/{{DB_NAME}}/$DB_NAME/g" local_settings.py
+          sed -i "s/{{DB_USER}}/$DB_USER/g" local_settings.py
+          sed -i "s/{{DB_PASSWORD}}/$DB_PASSWORD/g" local_settings.py
+
+      - name: Run python manage.py test
         run: python manage.py test

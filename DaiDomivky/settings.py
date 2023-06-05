@@ -162,3 +162,8 @@ LOGGING = {
 }
 
 from .local_settings import *  # noqa
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'some_default_value')
+DB_NAME = os.environ.get('DB_NAME', 'default_db_name')
+DB_USER = os.environ.get('DB_USER', 'default_db_user')
+DB_PASSWORD = os.environ.get('DB_PASSWORD', 'default_db_password')

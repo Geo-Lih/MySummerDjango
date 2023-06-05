@@ -4,45 +4,31 @@ on:
   - pull_request
 
 jobs:
-  flake8: #job's name
+  flake8:
     runs-on: ubuntu-latest
+    env:  # Set the environment variables here
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      # Add other environment variables as needed
     steps:
-      - name: Repository checkout #step name
-        uses: actions/checkout@v2 #This action checks-out your repository under $GITHUB_WORKSPACE
+      - name: Repository checkout
+        uses: actions/checkout@v2
 
-      - name: Python setup # step name
-        uses: actions/setup-python@v2 #Set up python version
+      - name: Python setup
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
-      - name: Install dependencies #step name
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run flake8 #step name
+      - name: Run flake8
         run: flake8
 
       - name: Print PYTHONPATH
         run: echo $PYTHONPATH
 
-      - name: Set up environment variables
-        run: |
-          echo "export DB_NAME=$DB_NAME" >> $GITHUB_ENV
-          echo "export DB_USER=$DB_USER" >> $GITHUB_ENV
-          echo "export DB_PASSWORD=$DB_PASSWORD" >> $GITHUB_ENV
-        shell: /usr/bin/bash -e {0}
-        env:
-          DB_NAME: ***
-          DB_USER: ***
-          DB_PASSWORD: ***
-
-      - name: Copy local_settings.py template
-        run: cp local_settings.py.template local_settings.py
-
-      - name: Update local_settings.py with environment variables
-        run: |
-          sed -i "s/{{DB_NAME}}/$DB_NAME/g" local_settings.py
-          sed -i "s/{{DB_USER}}/$DB_USER/g" local_settings.py
-          sed -i "s/{{DB_PASSWORD}}/$DB_PASSWORD/g" local_settings.py
-
-      - name: Run python manage.py test
+      - name: Run tests
         run: python manage.py test

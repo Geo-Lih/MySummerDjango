@@ -12,4 +12,4 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.task_send_sent_event = True  # Enable task events
 app.conf.update(task_track_started=True)
 
-app.autodiscover_tasks()  # to define tasks in 'tasks.py' from all registered Django apps
+app.autodiscover_tasks()  # to define tasks in 'test_tasks.py' from all registered Django apps

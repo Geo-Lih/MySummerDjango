@@ -25,3 +25,5 @@ def send_email_to_user(post_title, user_email):
         [user_email],
         fail_silently=False,
     )
+
+    return f'Sent email for post: {post_title} to {user_email}'

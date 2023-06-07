@@ -7,6 +7,7 @@ from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
+
 from .models import Post
 
 

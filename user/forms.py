@@ -12,6 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Email', max_length=254)  # redefining the username
+    # captcha = CaptchaField()
 
     def clean(self):  # simple validation
         username = self.cleaned_data.get('username')

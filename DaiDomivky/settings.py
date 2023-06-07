@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'contacts',
     'campaigns',
     'user',
-    'debug_toolbar'
+    'debug_toolbar',
+    'captcha',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -141,43 +143,4 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
-SESSION_COOKIE_AGE = 1200
-
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['file', 'console'],
-        'level': 'DEBUG',
-    },
-}
-
 from .local_settings import *  # noqa
-
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
-
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://localhost:6379/0',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}

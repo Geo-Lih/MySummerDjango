@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+import debug_toolbar.middleware
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,10 +41,12 @@ INSTALLED_APPS = [
     'about',
     'blog',
     'support',
-    'media',
     'contacts',
     'campaigns',
     'user',
+    'debug_toolbar',
+    'captcha',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +57,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'DaiDomivky.middleware.RequestLoggerMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
 ]
 
 ROOT_URLCONF = 'DaiDomivky.urls'
@@ -129,11 +136,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = '/static/'
-
 # This is an additional setting which tells Django where to look for static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # BASE_DIR is the root of your project
 ]
 
-from .local_settings import *
+AUTH_USER_MODEL = 'user.CustomUser'
+
+from .local_settings import *  # noqa

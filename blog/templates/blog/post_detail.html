@@ -6,7 +6,9 @@
 
 
 {% block content %}
-    <div>
+    <div>{% if post.author == user %}
+        <a href="{% url 'blog:update'  post.slug %}">Update</a>
+    {% endif %}
         <ul style="list-style-type: none">
             <li>
                 {{ post.title }}

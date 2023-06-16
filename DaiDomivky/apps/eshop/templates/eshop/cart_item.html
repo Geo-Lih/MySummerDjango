@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+
+
+{% block content %}
+    <div>
+        <ul style="list-style-type: none">
+            <li>
+                {{ item.product.name }}
+            </li>
+            <li>
+                {{ item.product.description }}
+            </li>
+            <li>
+                {{ item.product.price }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}

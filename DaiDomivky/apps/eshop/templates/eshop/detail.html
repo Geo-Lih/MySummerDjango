@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+
+
+{% block content %}
+    <div>
+        <ul style="list-style-type: none">
+            <li>
+                {{ product.name }}
+            </li>
+            <li>
+                {{ product.price }}
+            </li>
+            <li>
+                {{ product.description }}
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <form method="post">
+              {% csrf_token %}
+            <button> add to cart</button>
+
+        </form>
+    </div>
+{% endblock %}

@@ -14,14 +14,18 @@ class Product(models.Model):
 
 ACTIVE = 'Active'
 COMPLETED = 'Completed'
+PROCESSING = 'Processing'
+CANCELED = 'Canceled'
+STATUS_CHOICE = [
+    (ACTIVE, 'Active'),
+    (PROCESSING, 'Processing'),
+    (COMPLETED, 'Completed'),
+    (CANCELED, 'Canceled'),
+]
 
 
 class Order(models.Model):
-    ORDER_STATUS_CHOICE = [
-        (ACTIVE, 'Active'),
-        (COMPLETED, 'Completed'),
-    ]
-    status = models.CharField(max_length=15, choices=ORDER_STATUS_CHOICE, default=ACTIVE)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICE, default=ACTIVE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -47,16 +51,6 @@ class OrderItem(models.Model):
 
 
 class Payment(models.Model):
-    COMPLETED = 'Completed'
-    CANCELED = 'Canceled'
-    PROCESSING = 'Processing'
-
-    PAYMENT_STATUS_CHOICE = [
-        (COMPLETED, 'Completed'),
-        (PROCESSING, 'Processing'),
-        (CANCELED, 'Canceled'),
-    ]
-
     PAYPAL = 'PayPal'
     LIQPAY = 'Liqpay'
     PORTMONE = 'Portmone'
@@ -67,7 +61,7 @@ class Payment(models.Model):
     ]
     order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name='payment')
     system = models.CharField(max_length=30, choices=PAYMENT_SYSTEM_CHOICE, default=PAYPAL)
-    status = models.CharField(max_length=15, choices=PAYMENT_STATUS_CHOICE, default=PROCESSING)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICE, default=PROCESSING)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
 

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_celery_results',
     'apps.eshop',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'apps.eshop',
     'paypal.standard.ipn',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

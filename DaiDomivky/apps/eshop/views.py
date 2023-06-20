@@ -73,9 +73,6 @@ class PaymentAndShipmentCreate(APIView):
         # Providing new request.data to serializers
         payment_serializer = PaymentSerializer(data=request.data)
         shipment_serializer = ShipmentSerializer(data=request.data)
-        # payment_serializer.is_valid() -> bool
-        #                   .save()     -> obj
-        #                   .data       -> json
 
         if payment_serializer.is_valid() and shipment_serializer.is_valid():
             payment_serializer.save()
@@ -99,8 +96,6 @@ class PaymentUpdate(UpdateAPIView):
 
     def perform_update(self, serializer):  # serializer = PaymentSerializer()
         instance = serializer.save()  # saving updated payment obj
-
-        # If the payment is completed, mark the related order as completed as well
 
         order = instance.order
         order.status = instance.status

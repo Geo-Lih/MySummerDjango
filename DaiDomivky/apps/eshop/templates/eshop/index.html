@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+
+
+{% block content %}
+    {% for product in list %}
+        <ul style="list-style-type: none">
+            <li>
+<a href="{% url 'eshop:product_detail' pk=product.pk %}">{{ product }}</a>
+            </li>
+        </ul>
+    {% endfor %}
+    
+
+{% endblock %}
